@@ -1,4 +1,4 @@
-# gladiator
+# Kingdoms gladiator
 
 Basic client side cache, state managed RPG using basic JS features.
 

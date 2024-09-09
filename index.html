@@ -1,14 +1,123 @@
 <!doctype html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>
-            Gladiator
-        </title>
-        <link href="style.css" rel="stylesheet"> 
+        <title>Kingdoms Gladiator</title>
+        <link href="./style.css" rel="stylesheet">
     </head>
     <body>
-        <div id="app"></div>
-        <script src="main.js"></script>
+        <h1>Kingdoms Gladiator</h1>
+        <div id="viewport">
+            <div class="scene" id="intro-menu">
+                <a href="javascript:void(0)" onclick="changeScene('characterCreationMenu')">
+                    Create New Character
+                </a>
+            </div>
+            <div class="scene" id="character-creation-menu">
+                <div>
+                    <label for="name">Name:</label>
+                    <input id="name" type="text">
+                </div>
+                <a href="javascript:void(0)" onclick="generateName()">Generate Name</a>
+                <div>
+                    <label for="stat-points">Available Stat Points:</label>
+                    <input id="stat-points" name="stat-points" type="text">
+                </div>
+                <div>
+                    <label for="constitution">Constitution:</label>
+                    <button onclick="adjustInitialCharStat('constitution', -1)">-</button>
+                    <input id="constitution" name="constitution" type="text">
+                    <button onclick="adjustInitialCharStat('constitution', 1)">+</button>
+                    <p>
+                        Affects: HP, MP, physical defense, magic defense, consititution saving throws
+                    </p>
+                </div>
+                <div>
+                    <label for="strength">Strength:</label>
+                    <button onclick="adjustInitialCharStat('strength', -1)">-</button>
+                    <input id="strength" name="strength" type="text">
+                    <button onclick="adjustInitialCharStat('strength', 1)">+</button>
+                    <p>
+                        Affects: HP, physical attack and defense, strength saving throws
+                    </p>
+                </div>
+                <div>
+                    <label for="agility">Agility:</label>
+                    <button onclick="adjustInitialCharStat('agility', -1)">-</button>
+                    <input id="agility" name="agility" type="text">
+                    <button onclick="adjustInitialCharStat('agility', 1)">+</button>
+                    <p>
+                        Affects: Physical attack and defense, turn initiative, physical skill chance, agility saving throws
+                    </p>
+                </div>
+                <div>
+                    <label for="faith">Faith:</label>
+                    <button onclick="adjustInitialCharStat('faith', -1)">-</button>
+                    <input id="faith" name="faith" type="text">
+                    <button onclick="adjustInitialCharStat('faith', 1)">+</button>
+                    <p>
+                        Affects: MP, magic attack and defense, faith saving throws
+                    </p>
+                </div>
+                <div>
+                    <label for="intelligence">Intelligence:</label>
+                    <button onclick="adjustInitialCharStat('intelligence', -1)">-</button>
+                    <input id="intelligence" name="intelligence" type="text">
+                    <button onclick="adjustInitialCharStat('intelligence', 1)">+</button>
+                    <p>
+                        Affects: Magic attack and defense, turn initiative, magic skill chance, conversation chances, conversation options, intelligence saving throws
+                    </p>
+                </div>
+                <div>
+                    <label for="charisma">Charisma:</label>
+                    <button onclick="adjustInitialCharStat('charisma', -1)">-</button>
+                    <input id="charisma" name="charisma" type="text">
+                    <button onclick="adjustInitialCharStat('charisma', 1)">+</button>
+                    <p>
+                        Affects: Conversation chances, conversation options, shop/barter prices
+                    </p> 
+                </div>
+                <div>
+                    <label for="luck">Luck:</label>
+                    <button onclick="adjustInitialCharStat('luck', -1)">-</button>
+                    <input id="luck" name="luck" type="text">
+                    <button onclick="adjustInitialCharStat('luck', 1)">+</button>
+                    <p>
+                        Affects: All chances
+                    </p>
+                </div>
+                
+                <hr>
+
+                <div>
+                    <label for="hp">HP:</label>
+                    <input id="hp" name="hp" type="text">
+                </div>
+                <div>
+                    <label for="mp">MP:</label>
+                    <input id="mp" name="mp" type="text">
+                </div>
+                <div>
+                    <label for="physical-attack">Phsyical Attack:</label>
+                    <input id="physical-attack" name="physical-attack" type="text">
+                </div>
+                <div>
+                    <label for="physical-defense">Physical Defense:</label>
+                    <input id="physical-defense" name="physical-defense" type="text">
+                </div>
+                <div>
+                    <label for="magical-attack">Magical Attack:</label>
+                    <input id="magical-attack" name="magical-attack" type="text">
+                </div>
+                <div>
+                    <label for="magical-defense">Magical Defense:</label>
+                    <input id="magical-defense" name="magical-defense" type="text">
+                </div>
+            </div>
+        </div>
+        
+        <div id="message">
+            This game is in version 0.
+        </div>
+        <script type="module" src="./app.mjs"></script>
     </body>
 </html>
