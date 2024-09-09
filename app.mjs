@@ -16,17 +16,23 @@ function init() {
 function adjustInitialCharStat(stat, adjustmentAmount) {
     let nextAmount = store.characterStats[stat] + adjustmentAmount;
 
-    if (nextAmount < 0 && checkAdjustmentMax(stat, nextAmount)) {
+    if (nextAmount < 1 || !adjustmentTotalTooBig(adjustmentAmount)) {
             return;
-    } else {
-        
     }
-    return console.log(store.characterStats[stat] += amount)
+    
+    store.characterStats[stat] = nextAmount
+    updateCharacterMenuValues(store.characterStats)
+}
+
+function adjustmentTotalTooBig(adjustmentAmount) {
+    if (getStatTotal() + adjustmentAmount <= store.characterStats['total']) {
+        return true
+    }
+    return false
 }
 
 function changeScene(sceneName) {
     if (sceneName == 'characterCreationMenu') {
-        let sharedPool = 40
         var characterStats = {
             'constitution' : 1,
             'strength' : 1,
@@ -39,14 +45,10 @@ function changeScene(sceneName) {
         }
         store.characterStats = characterStats
 
-
         document.querySelector('#intro-menu').style.display = 'none'
         document.querySelector('#character-creation-menu').style.display = 'block'
+        updateCharacterMenuValues(store.characterStats)
     }
-}
-
-function checkAdjustmentMax(stat, nextAmount) {
-    let tempTotal = 
 }
 
 function generateName() {
@@ -57,6 +59,31 @@ function generateName() {
         name.push(names[Math.round(Math.random() * names.length)])
     }
     document.querySelector('#name').value = name.join(' ')
+}
+
+function getStatTotal() {
+    let tempTotal = 0;
+    
+    for (let key in store.characterStats) {
+        if (key == 'total') {
+            continue
+        }
+        tempTotal += store.characterStats[key]
+    }
+
+    return tempTotal
+}
+
+function updateCharacterMenuValues(stats) {
+    let availableStatPoints = stats['total'] - getStatTotal()
+    document.querySelector('#available-stat-points').value = availableStatPoints
+
+    for (let key in stats) {
+        if (key == 'total') {
+            continue
+        }
+        document.querySelector('#' + key).value = stats[key]
+    }
 }
 
 window.changeScene = changeScene
