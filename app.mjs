@@ -21,6 +21,7 @@ function adjustInitialCharStat(stat, adjustmentAmount) {
     }
     
     store.characterStats[stat] = nextAmount
+    calculateSecondaryValues(store.characterStats)
     updateCharacterMenuValues(store.characterStats)
 }
 
@@ -31,23 +32,47 @@ function adjustmentTotalTooBig(adjustmentAmount) {
     return false
 }
 
+function calculateSecondaryValues(stats) {
+    store.characterStats['secondary'] = {}
+    store.characterStats['secondary']['hp'] = stats['constitution'] * stats['strength']
+    store.characterStats['secondary']['mp'] = stats['constitution'] * stats['faith']
+    store.characterStats['secondary']['physicalAttack'] = stats['agility'] * stats['strength']
+    store.characterStats['secondary']['magicalAttack'] = stats['intelligence'] * stats['faith']
+    store.characterStats['secondary']['physicalDefense'] = (stats['constitution'] + stats['strength'] + stats['constitution'])
+    store.characterStats['secondary']['magicalDefense'] = (stats['intelligence'] + stats['faith'] + stats['constitution'])
+}
+
+function convertCamelToHyphen(string) {
+    return string.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+}
+
 function changeScene(sceneName) {
     if (sceneName == 'characterCreationMenu') {
-        var characterStats = {
-            'constitution' : 1,
-            'strength' : 1,
-            'agility' : 1,
-            'faith' : 1,
-            'intelligence' : 1,
-            'charisma' : 1,
-            'luck' : 1,
-            'total' : 40
+        const startingAmount = 4
+        const startingMax = 40
+        let characterStats = {
+            'constitution' : startingAmount,
+            'strength' : startingAmount,
+            'agility' : startingAmount,
+            'faith' : startingAmount,
+            'intelligence' : startingAmount,
+            'charisma' : startingAmount,
+            'luck' : startingAmount,
+            'total' : startingMax
         }
         store.characterStats = characterStats
 
         document.querySelector('#intro-menu').style.display = 'none'
         document.querySelector('#character-creation-menu').style.display = 'block'
+        calculateSecondaryValues(store.characterStats)
         updateCharacterMenuValues(store.characterStats)
+    }
+
+    if (sceneName == 'dayMenu') {
+        initializeDayMenu()
+
+        document.querySelector('#character-creation-menu').style.display = 'none'
+        document.querySelector('#day-menu').style.display = 'block'
     }
 }
 
@@ -63,15 +88,19 @@ function generateName() {
 
 function getStatTotal() {
     let tempTotal = 0;
-    
+    console.log(store.characterStats)
     for (let key in store.characterStats) {
-        if (key == 'total') {
+        if (key == 'total' || key == 'secondary') {
             continue
         }
         tempTotal += store.characterStats[key]
     }
 
     return tempTotal
+}
+
+function initializeDayMenu() {
+    
 }
 
 function updateCharacterMenuValues(stats) {
@@ -82,7 +111,14 @@ function updateCharacterMenuValues(stats) {
         if (key == 'total') {
             continue
         }
-        document.querySelector('#' + key).value = stats[key]
+        
+        if (key == 'secondary') {
+            for (let skey in stats[key]) {
+                document.querySelector('#' + convertCamelToHyphen(skey)).value = stats[key][skey]
+            }
+        } else {
+            document.querySelector('#' + key).value = stats[key]
+        }
     }
 }
 

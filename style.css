@@ -2,6 +2,12 @@ body {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+#container {
+    margin: 0 auto;
+    max-width: 500px;
+}
+
 .scene {
     display: none;
 }
