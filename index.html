@@ -9,11 +9,13 @@
             <h1>Kingdoms Gladiator</h1>
             <div id="viewport">
                 <div class="scene" id="intro-menu">
+                    <h2>Intro Menu</h2>
                     <a href="javascript:void(0)" onclick="changeScene('characterCreationMenu')">
                         Create New Character
                     </a>
                 </div>
                 <div class="scene" id="character-creation-menu">
+                    <h2>Character Creation Menu</h2>
                     <div>
                         <label for="name">Name:</label>
                         <input id="name" type="text">
@@ -115,6 +117,19 @@
                         <label for="magical-defense">Magical Defense:</label>
                         <input id="magical-defense" name="magical-defense" type="text">
                     </div>
+                </div>
+                <div class="scene" id="day-menu">
+                    <h2>Day <span id="day"></span> <span id="time-of-day"></span></h2>
+                    <h3>Choose Wisely...</h3>
+                    <a class="choice" href="javascript:void(0)" onclick="choice('battle')">
+                        Battle
+                    </a>
+                    <a class="choice" href="javascript:void(0)" onclick="choice('explore')">
+                        Explore
+                    </a>
+                    <a class="choice" href="javascript:void(0)" onclick="choice('rest')">
+                        Rest
+                    </a>
                 </div>
             </div>
         

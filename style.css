@@ -12,6 +12,10 @@ body {
     display: none;
 }
 
+.choice {
+    display: block;
+}
+
 label {
     display: inline-block;
     width: 200px;
